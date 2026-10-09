@@ -1,6 +1,6 @@
 # SaveSync
 
-Self-hosted game save sync between Windows, macOS and Android, using your own server (for example a NAS).
+Self-hosted game save sync between Windows, macOS and Android, using your own server.
 
 **[Download the latest release](https://github.com/Nicklbhender/savesync/releases/latest)**: Windows (portable exe),
 macOS (dmg) and Android (apk). The apps update themselves when a new release is published.
