@@ -1,0 +1,56 @@
+# SaveSync server + ntfy, for Docker Compose (or your NAS's container app).
+# Edit every line marked CHANGE before starting it.
+
+services:
+  savesync:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    image: savesync-server:local
+    container_name: savesync
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "8420:8420"
+    environment:
+      # CHANGE: a long random secret. Used to add devices, so treat it like a password.
+      SAVESYNC_ENROLL_KEY: "CHANGE-ME-generate-a-long-random-string"
+      SAVESYNC_KEEP_VERSIONS: "20"
+      SAVESYNC_MAX_FILE_MB: "1024"
+      # CHANGE: left side must match NTFY_BASE_URL below. Lets this container reach
+      # ntfy directly instead of through the Tailscale/LAN address phones use.
+      SAVESYNC_PUSH_REWRITE: "http://your-nas:8421=http://ntfy"
+    volumes:
+      # CHANGE if your shared folder is elsewhere. Database + all save versions live here.
+      - ./data:/data
+    logging:
+      driver: json-file
+      options:
+        max-size: "1m"
+        max-file: "2"
+
+  # Delivers "new save available" notices to Android phones, including ones that
+  # were asleep or off (it holds messages until the phone reconnects).
+  ntfy:
+    image: binwiederhier/ntfy:latest
+    container_name: savesync-ntfy
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    command: serve
+    ports:
+      - "8421:80"
+    environment:
+      # CHANGE: the address your phone uses to reach the NAS (Tailscale name or LAN IP).
+      NTFY_BASE_URL: "http://your-nas:8421"
+      NTFY_CACHE_FILE: /var/cache/ntfy/cache.db
+      # Hold undelivered notices for 3 days.
+      NTFY_CACHE_DURATION: "72h"
+    volumes:
+      - ./ntfy:/var/cache/ntfy
+    logging:
+      driver: json-file
+      options:
+        max-size: "1m"
+        max-file: "2"

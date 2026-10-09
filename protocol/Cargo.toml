@@ -1,0 +1,8 @@
+[package]
+name = "savesync-protocol"
+description = "Wire types shared by the SaveSync server and clients"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+serde.workspace = true

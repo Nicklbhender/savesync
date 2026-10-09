@@ -1,0 +1,6 @@
+/target
+/data
+/server/data
+.DS_Store
+/dist
+/.claude

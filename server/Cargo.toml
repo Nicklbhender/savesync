@@ -1,0 +1,29 @@
+[package]
+name = "savesync-server"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+savesync-protocol.workspace = true
+anyhow.workspace = true
+axum = { version = "0.8.9", features = ["ws", "macros"] }
+bytes = "1.12.1"
+futures-util.workspace = true
+hex.workspace = true
+rand = "0.10.3"
+reqwest.workspace = true
+rusqlite.workspace = true
+rustls.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tokio-util = { version = "0.7.19", features = ["io"] }
+tower-http = { version = "0.7.1", features = ["limit", "trace"] }
+tracing.workspace = true
+tracing-subscriber = { version = "0.3.23", features = ["env-filter"] }
+
+[dev-dependencies]
+tempfile.workspace = true
+tokio-tungstenite.workspace = true

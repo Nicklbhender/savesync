@@ -1,0 +1,12 @@
+[package]
+name = "release-sign"
+description = "Signs SaveSync release checksums so the apps can verify their updates"
+version = "1.0.0"
+edition = "2024"
+publish = false
+
+# Standalone: not part of the main workspace (keeps the server's Docker build lean).
+[workspace]
+
+[dependencies]
+ring = "0.17.14"

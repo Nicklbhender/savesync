@@ -1,0 +1,26 @@
+[package]
+name = "savesync-ffi"
+description = "Kotlin bindings (UniFFI) for the SaveSync engine, used by the Android app"
+version.workspace = true
+edition.workspace = true
+
+[lib]
+name = "savesync_ffi"
+crate-type = ["cdylib", "lib"]
+
+[[bin]]
+# Generates the Kotlin bindings: see scripts/build-android.sh
+name = "uniffi-bindgen"
+path = "uniffi-bindgen.rs"
+
+[dependencies]
+savesync-engine = { path = "../engine", default-features = false }
+serde_json.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tracing = { workspace = true, features = ["log"] }
+uniffi = { version = "0.32.2", features = ["cli"] }
+
+[target.'cfg(target_os = "android")'.dependencies]
+android_logger = "0.15.1"
+log = "0.4.34"

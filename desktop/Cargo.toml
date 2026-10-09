@@ -1,0 +1,28 @@
+[package]
+name = "savesync-desktop"
+description = "SaveSync desktop app (Windows / macOS)"
+version.workspace = true
+edition.workspace = true
+
+[build-dependencies]
+tauri-build = { version = "2.7.1", features = [] }
+
+[dependencies]
+savesync-engine = { path = "../engine" }
+futures-util.workspace = true
+hex.workspace = true
+reqwest = { workspace = true, features = ["stream"] }
+ring = "0.17"
+rustls.workspace = true
+sha2.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sysinfo = { version = "0.39.6", default-features = false, features = ["system"] }
+tauri = { version = "2.12.1", features = ["tray-icon", "image-png"] }
+tauri-plugin-autostart = "2.7.0"
+tauri-plugin-dialog = "2.8.1"
+tauri-plugin-notification = "2.5.1"
+tauri-plugin-single-instance = "2.5.2"
+tokio.workspace = true
+tracing.workspace = true
+tracing-subscriber = { version = "0.3.23", features = ["env-filter"] }
